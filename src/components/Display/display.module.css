@@ -1,0 +1,144 @@
+.portrait {
+  width: 120px;
+  height: 120px;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 0px;
+}
+
+.header {
+  text-align: left;
+  display: flex;
+}
+
+.charInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+  margin-top: 2%;
+  padding: 2%;
+  background-color: rgb(202, 202, 202);
+}
+
+.detail {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2%;
+}
+
+.detailTitle {
+  font-weight: bold;
+  margin-right: 7px;
+  margin-left: 10px;
+}
+
+.name {
+  margin-top: 4%;
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-around; */
+}
+
+.defences {
+  display: flex;
+  flex-direction: row;
+  margin-left: 5%;
+  margin-top: 2%;
+  padding: 2%;
+  text-align: center;
+  background-color: rgb(202, 202, 202);
+}
+
+.defenceTitle {
+  font-weight: bold;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.defence {
+  font-size: larger;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+/*Draw a shield for AC*/
+.ac {
+  height: 70px;
+  width: 70px;
+  border: 5px solid black;
+  border-radius: 50% 50% 50% 50% / 12% 12% 88% 88%;
+}
+
+.hp {
+  border: 5px solid black;
+  border-radius: 50% 50% 50% 50%;
+  height: 70px;
+  width: 70px;
+}
+
+.description {
+  display: flex;
+  margin-top: 3%;
+  border-top: 1px solid black;
+  text-align: justify;
+  background-color: rgb(202, 202, 202);
+}
+.abilities {
+  display: flex;
+  text-align: justify;
+  background-color: rgb(202, 202, 202);
+}
+
+.ability {
+  margin-right: 2%;
+  text-align: center;
+  padding-left: 20%;
+  padding-right: 15%;
+  background-color: rgb(202, 202, 202);
+}
+
+.savingThrows {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20%;
+  background-color: rgb(202, 202, 202);
+  padding-left: 8%;
+  padding-right: 15%;
+  padding-bottom: 1%;
+  font-size: small;
+  text-align: center;
+}
+
+.saves {
+  display: flex;
+  /* margin-left: 20%;
+  padding-left: 5%;
+  padding-right: 6%; */
+  text-align: justify;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.save {
+  text-align: center;
+  justify-content: space-evenly;
+  margin-left: 7%;
+  background-color: rgb(231, 231, 231);
+  padding: 2%;
+}
+.saveBonuses {
+  text-align: center;
+  justify-content: center;
+  margin-left: 7%;
+  background-color: rgb(231, 231, 231);
+  padding: 2%;
+  border: 1px solid black;
+}
+
+.mainHead {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 1%;
+}

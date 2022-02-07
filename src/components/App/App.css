@@ -1,0 +1,62 @@
+body {
+  background-color: rgb(224, 224, 224);
+}
+.App {
+  display: grid;
+  text-align: center;
+  grid-template-columns: 20vw 79vw;
+  grid-template-rows: 45vh 55vh;
+  grid-template-areas:
+    "search display"
+    "search display";
+  background-color: rgb(224, 224, 224);
+}
+
+.spell-viewer {
+  margin-top: 5%;
+  border: 1px solid black;
+}
+
+.search {
+  grid-area: search;
+  margin-top: 9%;
+}
+
+.display {
+  grid-area: display;
+  border: 1px solid black;
+}
+
+/* .details {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-left: 5%;
+}
+
+.detail {
+  padding: 5px;
+} */
+
+.descTitle {
+  font-weight: bold;
+}
+
+h1 {
+  padding-bottom: 3%;
+  border-bottom: 1px solid black;
+}
+
+.detailButtons button {
+  filter: drop-shadow(0 0 1px grey);
+  background: rgb(211, 211, 210);
+  /*box-shadow: inset 1px 1px rgb(77, 77, 77);*/
+  box-shadow: inset 1px 1px 5px rgba(255, 255, 255, 0.6),
+    inset -1px -1px 5px rgba(119, 118, 118, 0.6);
+  font-weight: 700;
+  font-size: 14px;
+  font-family: fantasy;
+  border-radius: 15px;
+  padding: 4px;
+  margin-right: 4px;
+  margin-left: 4px;
+}
