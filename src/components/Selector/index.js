@@ -16,22 +16,65 @@ function Selector({ search, onSubmit, searchName }) {
   //   }
   //   getSpells();
   // }, [onSubmit, search, searchName]);
+  //Check if there are duplicate names in the character list
+  function checkDuplicates(array, key) {
+    let duplicates = {};
+    array.forEach((item, index) => {
+      //count the number of instances that item[key] appears
+      let nameCount = 0;
+      for (let i = 0; i < array.length; i++) {
+        if (array[i][key] === item[key]) {
+          nameCount++;
+          console.log(nameCount);
+        }
+      }
+      //if it's more than one and the name isn't already in dupes, push it to the duplicates array and keep track of the item name
+      console.log("item key ", item[key]);
+      console.log("No dupes = ", !duplicates[item[key]]);
+      console.log("Old duplicates", duplicates);
+      if (nameCount > 1 && !duplicates[item[key]]) {
+        duplicates[item[key]] = nameCount;
+      }
+      console.log("New duplicates", duplicates);
+    });
+    return duplicates;
+  }
+
+  const duplicates = checkDuplicates(demo, "name");
+  let dupeNumber = 0;
 
   return (
     <div className="search-list">
       {demo.map(function (item) {
-        return (
-          <div id={item.name} key={item.name} className={css.characterListItem}>
-            <p
-              onClick={() => {
-                console.log(item);
-                onSubmit(item);
-              }}
-            >
-              {item.name}
-            </p>
-          </div>
-        );
+        if (duplicates[item.name]) {
+          dupeNumber = duplicates[item.name];
+          duplicates[item.name]--;
+          return (
+            <div id={item.id} key={item.id} className={css.characterListItem}>
+              <p
+                onClick={() => {
+                  console.log(item);
+                  onSubmit(item);
+                }}
+              >
+                {item.name} ({dupeNumber})
+              </p>
+            </div>
+          );
+        } else {
+          return (
+            <div id={item.id} key={item.id} className={css.characterListItem}>
+              <p
+                onClick={() => {
+                  console.log(item);
+                  onSubmit(item);
+                }}
+              >
+                {item.name}
+              </p>
+            </div>
+          );
+        }
       })}
     </div>
   );

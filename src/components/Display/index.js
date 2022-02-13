@@ -1,7 +1,8 @@
 import css from "./display.module.css";
+import { useState } from "react";
 
-function Display({ character }) {
-  //const [showChar, setShowChar] = useState(character);
+function Display({ character, onEdit }) {
+  const [newName, setNewName] = useState(character.name);
   console.log("Displaying: ", character);
 
   // useEffect(() => {
@@ -100,6 +101,40 @@ function Display({ character }) {
 
   console.log("strength save is", calculateSavingThrow("Strength"));
 
+  function editModal(toEdit) {
+    // Get the modal
+    const modal = document.getElementById("nameModal");
+
+    // Get the button that opens the modal
+
+    // Get the <span> element that closes the modal
+    const span = document.getElementsByClassName(css.modalClose)[0];
+
+    modal.style.display = "block";
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target === modal) {
+        modal.style.display = "toEdit";
+      }
+    };
+    console.log("modal");
+  }
+
+  function onNameInput(event) {
+    setNewName(event.target.value);
+    console.log("NewName is: ", event.target.value);
+  }
+
+  // function onSubmitName(newName) {
+
+  // }
+  //Character Name is working as intended, just need to have the selector update to the newest name (though it's not intended to display all the time anyway)
   return (
     <div className="display">
       <div className={css.header}>
@@ -108,7 +143,42 @@ function Display({ character }) {
           alt={character.name + "portrait"}
           className={css.portrait}
         ></img>
-        <h1 className={css.name}>{character.name}</h1>
+        <h1
+          className={css.name}
+          onClick={() => {
+            editModal(character.name);
+            setNewName(character.name);
+          }}
+        >
+          {character.name}
+        </h1>
+        <div id="nameModal" className={css.modal}>
+          <div className={css.modalContent}>
+            <span className={css.modalClose}>&times;</span>
+            <input
+              placeholder={character.name}
+              value={newName}
+              onChange={onNameInput}
+            ></input>
+            <button
+              onClick={() => {
+                if (newName !== "") {
+                  onEdit("name", newName);
+                  setNewName("");
+                  const modal = document.getElementById("nameModal");
+                  modal.style.display = "none";
+                } else {
+                  onEdit("name", "Nameless One");
+                  setNewName("Nameless One");
+                  const modal = document.getElementById("nameModal");
+                  modal.style.display = "none";
+                }
+              }}
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
         <div className={css.charInfo}>
           <div className={css.detail}>
             <p className={css.detailTitle}>Level</p>

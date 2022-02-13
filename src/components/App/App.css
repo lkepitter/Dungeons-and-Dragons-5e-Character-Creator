@@ -5,8 +5,9 @@ body {
   display: grid;
   text-align: center;
   grid-template-columns: 20vw 79vw;
-  grid-template-rows: 45vh 55vh;
+  grid-template-rows: 10vh 45vh 55vh;
   grid-template-areas:
+    "menu display"
     "search display"
     "search display";
   background-color: rgb(224, 224, 224);
@@ -19,6 +20,11 @@ body {
 
 .search {
   grid-area: search;
+  margin-top: 9%;
+}
+
+.menu {
+  grid-area: menu;
   margin-top: 9%;
 }
 
