@@ -1,6 +1,11 @@
 .display {
   grid-area: display;
-  border: 1px solid black;
+  border: 2px solid black;
+}
+
+.levelDisplay {
+  text-align: justify;
+  margin-left: 200px;
 }
 
 .portrait {

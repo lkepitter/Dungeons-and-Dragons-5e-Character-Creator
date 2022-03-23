@@ -2,3 +2,74 @@
   background-color: grey;
   cursor: pointer;
 }
+.initialList:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.modalContent {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+.modalClose {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.modalClose:hover,
+.modalClose:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.classEdit {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 10% 80% 10%;
+  grid-template-areas:
+    "header header"
+    "menu display"
+    "footer footer";
+}
+.class:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+.header {
+  grid-area: header;
+  text-align: left;
+  margin-left: 70px;
+}
+
+.menu {
+  grid-area: menu;
+}
+
+.display {
+  grid-area: display;
+}
+
+.footer {
+  grid-area: footer;
+  text-align: left;
+  margin-left: 70px;
+}

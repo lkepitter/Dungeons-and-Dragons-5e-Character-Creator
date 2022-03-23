@@ -1,17 +1,13 @@
 import css from "./display.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Modal from "../Modal";
+import Selector from "../Selector";
 
-function Display({ character, onEdit }) {
+function Display({ character, onEdit, onSubmit, setLeftMenu, leftMenu }) {
   const [newName, setNewName] = useState(character.name);
+
   console.log("Displaying: ", character);
 
-  // useEffect(() => {
-  //   function getSpell() {
-  //     let response = await fetch(`https://www.dnd5eapi.co/api/spells/${name}`);
-  //     setSpell(await response.json());
-  //   }
-  //   getSpell();
-  // }, [name]);
   function calculateAbilityMod(ability) {
     return Math.floor((ability - 10) / 2);
   }
@@ -101,7 +97,7 @@ function Display({ character, onEdit }) {
 
   console.log("strength save is", calculateSavingThrow("Strength"));
 
-  function editModal(toEdit) {
+  function editModal() {
     // Get the modal
     const modal = document.getElementById("nameModal");
 
@@ -135,148 +131,165 @@ function Display({ character, onEdit }) {
 
   // }
   //Character Name is working as intended, just need to have the selector update to the newest name (though it's not intended to display all the time anyway)
+
   return (
-    <div className="display">
-      <div className={css.header}>
-        <img
-          src={character.img}
-          alt={character.name + "portrait"}
-          className={css.portrait}
-        ></img>
-        <h1
-          className={css.name}
-          onClick={() => {
-            editModal(character.name);
-            setNewName(character.name);
-          }}
-        >
-          {character.name}
-        </h1>
-        <div id="nameModal" className={css.modal}>
-          <div className={css.modalContent}>
-            <span className={css.modalClose}>&times;</span>
-            <input
-              placeholder={character.name}
-              value={newName}
-              onChange={onNameInput}
-            ></input>
-            <button
-              onClick={() => {
-                if (newName !== "") {
-                  onEdit("name", newName);
-                  setNewName("");
-                  const modal = document.getElementById("nameModal");
-                  modal.style.display = "none";
-                } else {
-                  onEdit("name", "Nameless One");
-                  setNewName("Nameless One");
-                  const modal = document.getElementById("nameModal");
-                  modal.style.display = "none";
-                }
-              }}
-            >
-              Confirm
-            </button>
+    <>
+      <Selector
+        onSubmit={onSubmit}
+        setLeftMenu={setLeftMenu}
+        leftMenu={leftMenu}
+        character={character}
+        onEdit={onEdit}
+      ></Selector>
+      <div className="display">
+        <div className={css.header}>
+          <img
+            src={character.img}
+            alt={character.name + "portrait"}
+            className={css.portrait}
+          ></img>
+          <h1
+            className={css.name}
+            onClick={() => {
+              editModal();
+              setNewName(character.name);
+            }}
+          >
+            {character.name}
+          </h1>
+          <div id="nameModal" className={css.modal}>
+            <div className={css.modalContent}>
+              <span className={css.modalClose}>&times;</span>
+              <input
+                placeholder={character.name}
+                value={newName}
+                onChange={onNameInput}
+              ></input>
+              <button
+                onClick={() => {
+                  if (newName !== "") {
+                    onEdit("name", newName);
+                    setNewName("");
+                    const modal = document.getElementById("nameModal");
+                    modal.style.display = "none";
+                  } else {
+                    onEdit("name", "Nameless One");
+                    setNewName("Nameless One");
+                    const modal = document.getElementById("nameModal");
+                    modal.style.display = "none";
+                  }
+                }}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+          {/* <Modal
+          character={character}
+          placeholder={newName}
+          onInput={onNameInput}
+          onEdit={onEdit}
+          setInput={setNewName}
+        /> */}
+          <div className={css.charInfo}>
+            <div className={css.detail}>
+              <p className={css.detailTitle}>Level</p>
+              <p className="detail"> {character.charLevel}</p>
+              <p className={css.detailTitle}>Class</p>
+              <p className="detail"> {character.class}</p>
+              <p className={css.detailTitle}>Race</p>
+              <p className="detail">
+                {character.race}/{character.subrace}
+              </p>
+              <p className={css.detailTitle}>Background</p>
+              <p className="detail">{character.background}</p>
+            </div>
+          </div>
+          <div className={css.defences}>
+            <div className={css.ac}>
+              <p className={css.defenceTitle}>AC</p>
+              <p className={css.defence}> {character.armorClass}</p>
+            </div>
+            <div className={css.hp}>
+              <p className={css.defenceTitle}>HP</p>
+              <p className={css.defence}> {character.hp}</p>
+            </div>
           </div>
         </div>
-        <div className={css.charInfo}>
-          <div className={css.detail}>
-            <p className={css.detailTitle}>Level</p>
-            <p className="detail"> {character.charLevel}</p>
-            <p className={css.detailTitle}>Class</p>
-            <p className="detail"> {character.class}</p>
-            <p className={css.detailTitle}>Race</p>
-            <p className="detail">
-              {character.race}/{character.subrace}
-            </p>
-            <p className={css.detailTitle}>Background</p>
-            <p className="detail">{character.background}</p>
-          </div>
-        </div>
-        <div className={css.defences}>
-          <div className={css.ac}>
-            <p className={css.defenceTitle}>AC</p>
-            <p className={css.defence}> {character.armorClass}</p>
-          </div>
-          <div className={css.hp}>
-            <p className={css.defenceTitle}>HP</p>
-            <p className={css.defence}> {character.hp}</p>
-          </div>
-        </div>
-      </div>
-      <main className={css.mainDisplay}>
-        <div className={css.mainHead}>
-          <div className={css.abilities}>
-            <div className={css.ability}>
-              <p>STR</p>
-              <p>{character.abilities.Strength}</p>
-              <p>{strengthMod}</p>
-            </div>
-            <div className={css.ability}>
-              <p>DEX</p>
-              <p>{character.abilities.Dexterity}</p>
-              <p>{dexterityMod}</p>
-            </div>
-            <div className={css.ability}>
-              <p>CON</p>
-              <p>{character.abilities.Constitution}</p>
-              <p>{constitutionMod}</p>
-            </div>
-            <div className={css.ability}>
-              <p>INT</p>
-              <p>{character.abilities.Intelligence}</p>
-              <p>{intelligenceMod}</p>
-            </div>
-            <div className={css.ability}>
-              <p>WIS</p>
-              <p>{character.abilities.Wisdom}</p>
-              <p>{wisdomMod}</p>
-            </div>
-            <div className={css.ability}>
-              <p>CHA</p>
-              <p>{character.abilities.Charisma}</p>
-              <p>{charismaMod}</p>
-            </div>
-          </div>
-          <div className={css.savingThrows}>
-            <h4>Saving Throws</h4>
-            <div className={css.saves}>
-              <div className={css.save}>
+        <main className={css.mainDisplay}>
+          <div className={css.mainHead}>
+            <div className={css.abilities}>
+              <div className={css.ability}>
                 <p>STR</p>
-                <p>{strengthSave}</p>
+                <p>{character.abilities.Strength}</p>
+                <p>{strengthMod}</p>
               </div>
-              <div className={css.save}>
+              <div className={css.ability}>
                 <p>DEX</p>
-                <p>{dexteritySave}</p>
+                <p>{character.abilities.Dexterity}</p>
+                <p>{dexterityMod}</p>
               </div>
-              <div className={css.save}>
+              <div className={css.ability}>
                 <p>CON</p>
-                <p>{constitutionSave}</p>
+                <p>{character.abilities.Constitution}</p>
+                <p>{constitutionMod}</p>
               </div>
-              <div className={css.save}>
+              <div className={css.ability}>
                 <p>INT</p>
-                <p>{intelligenceSave}</p>
+                <p>{character.abilities.Intelligence}</p>
+                <p>{intelligenceMod}</p>
               </div>
-              <div className={css.save}>
+              <div className={css.ability}>
                 <p>WIS</p>
-                <p>{wisdomSave}</p>
+                <p>{character.abilities.Wisdom}</p>
+                <p>{wisdomMod}</p>
               </div>
-              <div className={css.save}>
+              <div className={css.ability}>
                 <p>CHA</p>
-                <p>{charismaSave}</p>
+                <p>{character.abilities.Charisma}</p>
+                <p>{charismaMod}</p>
               </div>
-              <div className={css.saveBonuses}>
-                Save Bonuses: advantage on X, Y
+            </div>
+            <div className={css.savingThrows}>
+              <h4>Saving Throws</h4>
+              <div className={css.saves}>
+                <div className={css.save}>
+                  <p>STR</p>
+                  <p>{strengthSave}</p>
+                </div>
+                <div className={css.save}>
+                  <p>DEX</p>
+                  <p>{dexteritySave}</p>
+                </div>
+                <div className={css.save}>
+                  <p>CON</p>
+                  <p>{constitutionSave}</p>
+                </div>
+                <div className={css.save}>
+                  <p>INT</p>
+                  <p>{intelligenceSave}</p>
+                </div>
+                <div className={css.save}>
+                  <p>WIS</p>
+                  <p>{wisdomSave}</p>
+                </div>
+                <div className={css.save}>
+                  <p>CHA</p>
+                  <p>{charismaSave}</p>
+                </div>
+                <div className={css.saveBonuses}>
+                  Save Bonuses: advantage on X, Y
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={css.description}>
-          <p className="desc">Character description here</p>
-          <p className="detailButtons"></p>
-        </div>
-      </main>
-    </div>
+          <div className={css.description}>
+            <p className="desc">Character description here</p>
+            <p className="detailButtons"></p>
+          </div>
+        </main>
+      </div>
+    </>
   );
 }
 
