@@ -145,4 +145,100 @@ const demo = [
   },
 ];
 
+export const charClass = [
+  {
+    name: "Bard",
+    hitDie: "6",
+    spells: "bard",
+    spellcasting: { ability: "Charisma", level: 1 },
+    savesTrained: ["Dexterity", "Charisma"],
+    savesProf: { str: "U", dex: "T", con: "U", int: "U", wis: "U", cha: "T" },
+    armourTrained: ["Light"],
+    armourProf: { light: "T", medium: "U", heavyArmour: "U", shields: "U" },
+    weaponsTrained: [
+      "Simple",
+      "Longswords",
+      "Rapier",
+      "Shortswords",
+      "Handcrossbows",
+    ],
+    weaponProf: {
+      simple: "T",
+      longswords: "T",
+      rapier: "T",
+      shortswords: "T",
+      handCrossbows: "T",
+    },
+    skillsProf: {
+      numChoice: 3,
+      choices: ["Any"],
+    },
+    startingEquipment: [
+      { a: "rapier", b: "longsword", c: "any simple weapon" },
+      { a: "lute", b: "any other musical instrument" },
+      { a: "diplomat's pack", b: "entertainer’s pack" },
+      "Leather armour and a dagger",
+    ],
+    levels: [
+      {
+        id: 1,
+        features: ["Bardic Spellcasting", "Bardic Inspiration (d6)"],
+        spells: { cantrip: 2, slots1: 2, known: 4 },
+      },
+      {
+        id: 2,
+        features: ["Jack of All Trades", "Song of Rest (d6)"],
+        spells: { cantrip: 2, slots1: 3, known: 5 },
+      },
+      {
+        id: 3,
+        features: ["Bard College", "Expertise"],
+        spells: { cantrip: 2, slots1: 4, slots2: 2, known: 6 },
+      },
+    ],
+  },
+  {
+    name: "Wizard",
+    hitDie: "6",
+    spells: "wizard",
+    savesProf: { str: "U", dex: "U", con: "U", int: "T", wis: "T", cha: "U" },
+    armourProf: { light: "U", medium: "U", heavyArmour: "U" },
+    weaponProf: { simple: "U", martial: "U", unarmed: "U" },
+    savesTrained: ["Intelligence", "Wisdom"],
+    armourTrained: ["None"],
+    weaponsTrained: [
+      "Daggers",
+      "Darts",
+      "Slings",
+      "Quarterstaffs",
+      "Light Crossbows",
+    ],
+    toolsProf: ["None"],
+    skillsProf: {
+      numChoice: 2,
+      choices: [
+        "Arcana",
+        "History",
+        "Insight",
+        "Investigation",
+        "Medicine",
+        "Religion",
+      ],
+    },
+    startingEquipment: [
+      { a: "quarterstaff", b: "dagger" },
+      { a: "component pouch", b: "arcane focus" },
+      { a: "scholar's pack", b: "explorer’s pack" },
+      "spellbook",
+    ],
+    levels: [
+      { id: 1, features: ["Wizard Spellcasting"] },
+      { id: 2, features: ["Y"] },
+      { id: 3, features: ["z"] },
+    ],
+  },
+];
+
+export const dndB = [{ name: "Barbarian" }];
+
 export default demo;

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import css from "./menu.module.css";
 
-const Menu = () => {
+const Menu = ({ addNew, setLeftMenu, onSubmit }) => {
+  const [newName, setNewName] = useState("");
   function newCharModal() {
     // Get the modal
     const modal = document.getElementById("newCharModal");
@@ -26,25 +27,56 @@ const Menu = () => {
     };
     console.log("modal");
   }
+  function onNameInput(event) {
+    setNewName(event.target.value);
+    console.log("NewName is: ", event.target.value);
+  }
 
   return (
-    <div>
-      <button
-        onClick={() => {
-          newCharModal();
-        }}
-      >
-        New
-      </button>
-      <button>Load</button>
+    <div className={css.dropdown}>
+      <button className={css.dropbtn}>Menu</button>
+      <div className={css.dropdownContent}>
+        <button
+          onClick={() => {
+            newCharModal();
+          }}
+        >
+          New
+        </button>
+        <button
+          onClick={() => {
+            setLeftMenu("charSelector");
+          }}
+        >
+          Load
+        </button>
+      </div>
       <div id="newCharModal" className={css.modal}>
         <div className={css.modalContent}>
           <span className={css.modalClose}>&times;</span>
           <input
-          //   placeholder={}
-          //   value={}
-          //   onChange={}
+            placeholder={"Enter character name"}
+            value={newName}
+            onChange={onNameInput}
           ></input>
+          <button
+            onClick={() => {
+              if (newName !== "") {
+                console.log("Adding new character: ", newName);
+                addNew(newName);
+                setNewName("");
+                const modal = document.getElementById("newCharModal");
+                modal.style.display = "none";
+              } else {
+                addNew("Nameless One");
+                setNewName("Nameless One");
+                const modal = document.getElementById("newCharModal");
+                modal.style.display = "none";
+              }
+            }}
+          >
+            Confirm
+          </button>
         </div>
       </div>
     </div>
